@@ -1,9 +1,11 @@
-
-#include "SDL.h"
-#include <iostream>
+#include "Application.h"
+//#include "SDL.h"
+//#include <iostream>
 
 int main(int argc, char* argv[]) {
-
+    wot::Application app;
+    app.Start();
+    /*
     SDL_Window *window;                    // Declare a pointer
     SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL2
 
@@ -25,6 +27,7 @@ int main(int argc, char* argv[]) {
     SDL_Delay(3000);  // Pause execution for 3000 milliseconds, for example
     SDL_DestroyWindow(window);
     SDL_Quit();
+    */
     return 0;
 }
 
