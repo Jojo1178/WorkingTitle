@@ -16,18 +16,13 @@ namespace wot {
 	    Resource resource;
 	    
 	    Item(void);
-	    
-	    Item(int valId, 
-		std::string valName, 
-		bool valStackable, 
-		unsigned int valQuantity, 
-		Coordinates valCoordinates, 
-		Resource Valresource);
+	    Item(const Item&);
+	    Item(int, std::string, bool, unsigned int, Coordinates, Resource);
 
-	    void operator=(Item val);
+	    void operator=(Item);
     };
 
-    bool operator==(Item const& a,Item const& b);
+    bool operator==(Item const&,Item const&);
 } /* wot */
 
 #endif /* __ITEM_H__ */

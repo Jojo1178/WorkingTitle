@@ -14,7 +14,9 @@ namespace wot {
 	    std::string configPath;
 	    
 	    Resource(void);
-	    Resource(std::string valResourceType, std::string valImagePath, std::string valConfigPath);
+	    Resource(const Resource&);
+	    Resource(std::string, std::string, std::string);
+	    void operator=(Resource);
     };
 
 } /* wot */

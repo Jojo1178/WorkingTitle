@@ -14,12 +14,25 @@ namespace wot {
 	y = valY;
     }
 
+    Coordinates::Coordinates(const Coordinates& valCoordinates){
+	x = valCoordinates.x;
+	y = valCoordinates.y;
+    }
+
     bool operator>(Coordinates const& a,Coordinates const& b){
-	return std::tie(a.x,a.y) > std::tie(b.x,b.y);
+	if((a.y > b.y) || (a.y == b.y && a.x >= b.x))
+		return true;
+	else
+		return false;
+	//return std::tie(a.x,a.y) > std::tie(b.x,b.y);
     }
 
     bool operator<(Coordinates const& a,Coordinates const& b){
-	return std::tie(a.x,a.y) < std::tie(b.x,b.y);
+	if((a.y < b.y) || (a.y == b.y && a.x <= b.x))
+		return true;
+	else
+		return false;
+	//return std::tie(a.x,a.y) < std::tie(b.x,b.y);
     }
 
     void Coordinates::operator=(Coordinates val){

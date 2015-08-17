@@ -24,5 +24,24 @@ namespace wot {
 
         inventory = valInventory;
     }
+
+    LocalPlayer::LocalPlayer(const LocalPlayer& valPlayer){
+	id = valPlayer.id;
+	name = valPlayer.name;
+	stackable = valPlayer.stackable;
+	quantity = valPlayer.quantity;
+	coordinates = valPlayer.coordinates;
+	resource = valPlayer.resource;
+        inventory = valPlayer.inventory;
+    }
     
+    void LocalPlayer::operator=(LocalPlayer valPlayer){
+	id = valPlayer.id;
+	name = valPlayer.name;
+	stackable = valPlayer.stackable;
+	quantity = valPlayer.quantity;
+	coordinates = valPlayer.coordinates;
+	resource = valPlayer.resource;
+        inventory = valPlayer.inventory;
+    }    
 } /* wot */

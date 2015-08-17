@@ -9,7 +9,9 @@ namespace wot {
             LocalPlayerInventory inventory;
 	    
 	    LocalPlayer(void);
-	    LocalPlayer(LocalPlayerInventory valInventory);
+	    LocalPlayer(const LocalPlayer&);
+	    LocalPlayer(LocalPlayerInventory);
+	    void operator=(LocalPlayer);
     };
 
 } /* wot */

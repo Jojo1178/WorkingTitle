@@ -8,13 +8,14 @@ namespace wot {
 	    int y;
 	    
 	    Coordinates(void);
-	    Coordinates(int valX, int valY);
-	    void operator=(Coordinates val);
+	    Coordinates(int, int);
+	    Coordinates(const Coordinates&);
+	    void operator=(Coordinates);
     };
 
-    bool operator>(Coordinates const& a,Coordinates const& b);
-    bool operator<(Coordinates const& a,Coordinates const& b);
-    bool operator==(Coordinates const& a,Coordinates const& b);
+    bool operator>(Coordinates const&,Coordinates const&);
+    bool operator<(Coordinates const&,Coordinates const&);
+    bool operator==(Coordinates const&,Coordinates const&);
 } /* wot */
 
 #endif /* __COORDINATES_H__ */

@@ -21,6 +21,15 @@ namespace wot {
 		resource = valResource;
 	}
 
+	Item::Item(const Item& valItem){
+		id = valItem.id;
+		name = valItem.name;
+		stackable = valItem.stackable;
+		quantity = valItem.quantity;
+		coordinates = valItem.coordinates;
+		resource = valItem.resource;
+	}
+
 	void Item::operator=(Item val){
 		id = val.id;
 		name = val.name;

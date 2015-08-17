@@ -5,6 +5,11 @@ namespace wot {
         capacity = 0;
     }
 
+   LocalPlayerInventory::LocalPlayerInventory(const LocalPlayerInventory& valLocalPlayerInventory) {
+        capacity = valLocalPlayerInventory.capacity;
+	content = valLocalPlayerInventory.content;
+    }
+
     LocalPlayerInventory::LocalPlayerInventory(int valCapacity, std::vector<Item> valContent) {
         capacity = valCapacity;
 	content = valContent;
@@ -31,5 +36,10 @@ namespace wot {
     void LocalPlayerInventory::removeItem(int place){
 	content.erase(content.begin() + place);
     }
+
+   void LocalPlayerInventory::operator=(LocalPlayerInventory valLocalPlayerInventory){
+        capacity = valLocalPlayerInventory.capacity;
+	content = valLocalPlayerInventory.content;
+   }
     
 } /* wot */
