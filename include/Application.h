@@ -1,19 +1,13 @@
 #ifndef __APPLICATION_H__
 #define __APPLICATION_H__
 
+#include "ApplicationStateMachine.h"
+
 namespace wot {
-    class Application {
-        private:
-            /* data */
-    
+    class Application : public ApplicationStateMachine {
         public:
             Application (void);
-            void PreInit (void);
-            void Init (void);
-            void Run (void);
-            void Close (void);
-
-            void Start (void);
+            ~Application ();
     };
 } /* wot */
 

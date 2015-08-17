@@ -4,7 +4,7 @@
 
 int main(int argc, char* argv[]) {
     wot::Application app;
-    app.Start();
+    app.Start(argc, argv);
     /*
     SDL_Window *window;                    // Declare a pointer
     SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL2
