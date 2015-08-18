@@ -19,9 +19,7 @@ namespace wot {
         errorFlag = _machine.errorFlag;
     }
 
-    ApplicationStateMachine::~ApplicationStateMachine() {
-
-    }
+    ApplicationStateMachine::~ApplicationStateMachine() {}
 
     ApplicationStateMachine & ApplicationStateMachine::operator=(const ApplicationStateMachine& _machine) {
         state = _machine.state;
@@ -30,7 +28,7 @@ namespace wot {
 
     void ApplicationStateMachine::PreInit (int argc, char* argv[]) {
         ApplicationPreferencesManager::feedPreferences(DEFAULT_CONFIGFILE);
-
+        ApplicationPreferencesManager::feedPreferences(argc, argv);
         ApplicationPreferencesManager::printPreferences();
     }
 

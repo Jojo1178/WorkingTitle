@@ -41,7 +41,35 @@ namespace wot {
     }
 
     void ApplicationPreferencesManager::feedPreferences(int argc, char* argv[]) {
+        if (argc > 1) {
+            for (int i = 1; i < argc; i++) {
+                std::string param = argv[i];
+                if (param[0] == '-') {
+                    if (param[1] == '-') {
+                        std::string param_content = param.substr(2);
+                        int separator_index;
+                        if (separator_index = param_content.find("=")) {
+                            std::string key = param_content.substr(0, separator_index);
+                            std::string value = param_content.substr(separator_index);
 
+                            bool conversion_error = false;
+                            int intvalue = 0;
+                            
+                            try {
+                                intvalue = std::stoi(value);
+                            } catch (const std::invalid_argument& e) {
+                                conversion_error = true;
+                            }
+
+                            if (conversion_error)
+                                stringPreferences.insert(std::pair<std::string, std::string>(key, value));
+                            else
+                                integerPreferences.insert(std::pair<std::string, int>(key, intvalue));
+                        }
+                    }
+                } else std::cerr << "Unrecognized parameter: " << param << std::endl;
+            }
+        }
     }
 
     void clearPreferences() {
