@@ -34,9 +34,9 @@ namespace wot {
             }
 
             if (conversion_error)
-                stringPreferences.insert(std::pair<std::string, std::string>(key, value));
+                stringPreferences[key] = value;
             else
-                integerPreferences.insert(std::pair<std::string, int>(key, intvalue));
+                integerPreferences[key] = intvalue;
         }
     }
 
@@ -50,7 +50,7 @@ namespace wot {
                         int separator_index;
                         if (separator_index = param_content.find("=")) {
                             std::string key = param_content.substr(0, separator_index);
-                            std::string value = param_content.substr(separator_index);
+                            std::string value = param_content.substr(separator_index+1);
 
                             bool conversion_error = false;
                             int intvalue = 0;
@@ -62,9 +62,9 @@ namespace wot {
                             }
 
                             if (conversion_error)
-                                stringPreferences.insert(std::pair<std::string, std::string>(key, value));
+                                stringPreferences[key] = value;
                             else
-                                integerPreferences.insert(std::pair<std::string, int>(key, intvalue));
+                                integerPreferences[key] = intvalue;
                         }
                     }
                 } else std::cerr << "Unrecognized parameter: " << param << std::endl;
@@ -88,11 +88,23 @@ namespace wot {
         }
     }
 
-    int  ApplicationPreferencesManager::getIntegerPreference(std::string & key, int def) {
-        return def;
+    int  ApplicationPreferencesManager::getIntegerPreference(std::string key, int def) {
+        int ret;
+        try {
+            ret = integerPreferences.at(key); 
+        } catch (std::out_of_range& e) {
+            return def;
+        }
+        return ret;
     }
 
-    std::string ApplicationPreferencesManager::getStringPreference(std::string & key, std::string def) {
-        return def;
+    std::string ApplicationPreferencesManager::getStringPreference(std::string key, std::string def) {
+        std::string ret;
+        try {
+            ret = stringPreferences.at(key); 
+        } catch (std::out_of_range& e) {
+            return def;
+        }
+        return ret;
     }
 } /* wot */

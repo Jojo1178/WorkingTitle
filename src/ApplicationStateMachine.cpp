@@ -39,13 +39,14 @@ namespace wot {
             errorFlag = true;
             return;
         }
-        
+
         window = SDL_CreateWindow(
-                "Working Title", 
-                SDL_WINDOWPOS_UNDEFINED, 
-                SDL_WINDOWPOS_UNDEFINED, 
-                800, 600, 
-                SDL_WINDOW_SHOWN);
+            ApplicationPreferencesManager::getStringPreference("name", DEFAULT_NAME).c_str(),
+            SDL_WINDOWPOS_UNDEFINED, 
+            SDL_WINDOWPOS_UNDEFINED, 
+            ApplicationPreferencesManager::getIntegerPreference("width", DEFAULT_WIDTH),
+            ApplicationPreferencesManager::getIntegerPreference("height", DEFAULT_HEIGHT),
+            SDL_WINDOW_SHOWN);
 
         screen = SDL_GetWindowSurface(window);
 
