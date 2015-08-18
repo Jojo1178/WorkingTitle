@@ -1,5 +1,8 @@
 #include "ApplicationStateMachine.h"
 
+#include "DefaultValues.h"
+
+#include "ApplicationPreferencesManager.h"
 #include "InitState.h"
 
 namespace wot {
@@ -26,6 +29,9 @@ namespace wot {
     }
 
     void ApplicationStateMachine::PreInit (int argc, char* argv[]) {
+        ApplicationPreferencesManager::feedPreferences(DEFAULT_CONFIGFILE);
+
+        ApplicationPreferencesManager::printPreferences();
     }
 
     void ApplicationStateMachine::Init (void) {

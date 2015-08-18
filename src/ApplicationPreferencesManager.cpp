@@ -1,19 +1,63 @@
 #include "ApplicationPreferencesManager.h"
 
+#include "DefaultValues.h"
+
+#include <stdexcept>
+#include <iostream>
+#include <sstream>
+#include <fstream>
+
 namespace wot {
+    std::map<std::string, int> ApplicationPreferencesManager::integerPreferences;
+    std::map<std::string, std::string> ApplicationPreferencesManager::stringPreferences;
+
     ApplicationPreferencesManager::ApplicationPreferencesManager() {}
     ApplicationPreferencesManager::~ApplicationPreferencesManager() {}
 
-    void ApplicationPreferencesManager::FeedPreferences(std::string preferenceFilePath) {
+    void ApplicationPreferencesManager::feedPreferences(std::string preferenceFilePath) {
+        std::string line;
+        std::ifstream infile(preferenceFilePath);
+
+        while (std::getline(infile, line)) {
+            bool conversion_error = false;
+            int intvalue = 0;
+            std::string key, value;
+            std::stringstream ss(line);
+            ss >> key;
+            ss >> std::ws;
+            std::getline(ss, value);
+            
+            try {
+                intvalue = std::stoi(value);
+            } catch (const std::invalid_argument& e) {
+                conversion_error = true;
+            }
+
+            if (conversion_error)
+                stringPreferences.insert(std::pair<std::string, std::string>(key, value));
+            else
+                integerPreferences.insert(std::pair<std::string, int>(key, intvalue));
+        }
+    }
+
+    void ApplicationPreferencesManager::feedPreferences(int argc, char* argv[]) {
 
     }
 
-    void ApplicationPreferencesManager::FeedPreferences(int argc, char* argv[]) {
+    void clearPreferences() {
 
     }
 
-    bool ApplicationPreferencesManager::getBooleanPreference(std::string & key, bool def) {
-        return def;
+    void ApplicationPreferencesManager::printPreferences() {
+        std::cout << "INTEGER PREFERENCES:" << std::endl;
+        for (auto iit = integerPreferences.begin(); iit!=integerPreferences.end(); ++iit) {
+            std::cout << "KEY: " << iit->first << " VALUE:" << iit->second << std::endl;
+        }
+
+        std::cout << "STRING PREFERENCES:" << std::endl;
+        for (auto sit = stringPreferences.begin(); sit!=stringPreferences.end(); ++sit) {
+            std::cout << "KEY: " << sit->first << " VALUE:" << sit->second << std::endl;
+        }
     }
 
     int  ApplicationPreferencesManager::getIntegerPreference(std::string & key, int def) {
