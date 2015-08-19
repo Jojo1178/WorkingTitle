@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include <iostream>
 
 namespace wot {
     Scene::Scene(void) {
@@ -39,9 +40,23 @@ namespace wot {
 		}
 		items.push_back(itemToAdd);
 	}
+        std::sort(items.begin(),items.end());
     }
     void Scene::render(){
+/*
+//Cartesian to isometric:
+ 
+isoX = cartX - cartY;
+isoY = (cartX + cartY) / 2;
 	
+//Isometric to Cartesian:
+ 
+cartX = (2 * isoY + isoX) / 2;
+cartY = (2 * isoY - isoX) / 2;
+*/
+        std::cout << "items contains:";
+        for (std::vector<Item>::iterator it=items.begin(); it!=items.end(); ++it)
+            std::cout << ((Item)*it).name <<"\n";
     }
     void Scene::clear(){
 	

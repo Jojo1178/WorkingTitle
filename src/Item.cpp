@@ -42,4 +42,8 @@ namespace wot {
 	bool operator==(Item const& a,Item const& b){
 		return a.id == b.id;
 	}
+
+        bool operator<(Item const& a,Item const& b){
+                return a.coordinates < b.coordinates;
+        }
 } /* wot */

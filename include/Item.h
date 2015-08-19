@@ -23,6 +23,7 @@ namespace wot {
     };
 
     bool operator==(Item const&,Item const&);
+    bool operator<(Item const&,Item const&);
 } /* wot */
 
 #endif /* __ITEM_H__ */

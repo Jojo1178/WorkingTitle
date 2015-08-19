@@ -10,6 +10,8 @@ namespace wot {
 	    Coordinates(void);
 	    Coordinates(int, int);
 	    Coordinates(const Coordinates&);
+            Coordinates isoToTwoD(Coordinates, int, int, int);
+            Coordinates twoDToIso(Coordinates, int, int, int);
 	    void operator=(Coordinates);
     };
 

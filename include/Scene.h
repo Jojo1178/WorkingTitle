@@ -4,6 +4,7 @@
 #include "Item.h"
 #include "LocalPlayer.h"
 #include <vector>
+#include <algorithm> 
 
 namespace wot {
     class Scene {

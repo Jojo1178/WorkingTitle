@@ -19,6 +19,20 @@ namespace wot {
 	y = valCoordinates.y;
     }
 
+    Coordinates Coordinates::isoToTwoD(Coordinates iso, int tileWHalf, int tileHHalf, int screenWidth){
+        Coordinates twoD = Coordinates();
+        twoD.x = (iso.x - iso.y) * tileWHalf + screenWidth ;
+        twoD.y = (iso.x + iso.y) * tileHHalf;
+        return(twoD);
+    }
+
+    Coordinates Coordinates::twoDToIso(Coordinates twoD, int tileWHalf, int tileHHalf, int tileNbHalf){
+        Coordinates iso = Coordinates();
+	iso.x = ((twoD.x / tileWHalf + twoD.y / tileHHalf) /2) - tileNbHalf;
+	iso.y = ((twoD.y / (tileHHalf) -(twoD.x / tileWHalf)) /2) + tileNbHalf;
+        return(iso);
+    }
+
     bool operator>(Coordinates const& a,Coordinates const& b){
 	if((a.y > b.y) || (a.y == b.y && a.x >= b.x))
 		return true;
