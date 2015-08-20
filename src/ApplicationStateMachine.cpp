@@ -1,8 +1,9 @@
 #include "ApplicationStateMachine.h"
 
-#include "DefaultValues.h"
 
 #include "ApplicationPreferencesManager.h"
+#include "ResourcesManager.h"
+#include "DefaultValues.h"
 #include "InitState.h"
 
 namespace wot {
@@ -30,6 +31,9 @@ namespace wot {
         ApplicationPreferencesManager::feedPreferences(DEFAULT_CONFIGFILE);
         ApplicationPreferencesManager::feedPreferences(argc, argv);
         ApplicationPreferencesManager::printPreferences();
+
+        ResourcesManager::feedResources(ApplicationPreferencesManager::getStringPreference("raw_resources_path", DEFAULT_RAW_RESOURCES_PATH));
+        ResourcesManager::printResources();
     }
 
     void ApplicationStateMachine::Init (void) {

@@ -13,10 +13,11 @@ namespace wot {
 	    std::string imagePath;
 	    std::string configPath;
 	    
-	    Resource(void);
+	    Resource();
 	    Resource(const Resource&);
 	    Resource(std::string, std::string, std::string);
-	    void operator=(Resource);
+
+        void operator=(Resource);
     };
 
 } /* wot */

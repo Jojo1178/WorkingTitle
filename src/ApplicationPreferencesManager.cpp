@@ -72,8 +72,9 @@ namespace wot {
         }
     }
 
-    void clearPreferences() {
-
+    void ApplicationPreferencesManager::clearPreferences() {
+        integerPreferences.clear();
+        stringPreferences.clear();
     }
 
     void ApplicationPreferencesManager::printPreferences() {
