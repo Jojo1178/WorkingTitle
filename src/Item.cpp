@@ -30,13 +30,14 @@ namespace wot {
 		resource = valItem.resource;
 	}
 
-	void Item::operator=(Item val){
+	Item & Item::operator=(const Item& val){
 		id = val.id;
 		name = val.name;
 		stackable = val.stackable;
 		quantity = val.quantity;
 		coordinates = val.coordinates;
 		resource = val.resource;
+                return *this;
 	}
 
 	bool operator==(Item const& a,Item const& b){

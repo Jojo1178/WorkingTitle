@@ -11,7 +11,7 @@ namespace wot {
 	    LocalPlayer();
 	    LocalPlayer(const LocalPlayer& valPlayer);
 	    LocalPlayer(LocalPlayerInventory valInventory);
-	    void operator=(LocalPlayer valPlayer);
+	    LocalPlayer &operator=(const LocalPlayer&);
     };
 
 } /* wot */

@@ -10,11 +10,11 @@ namespace wot {
         public:
 	    Scene scene;
 	    
-	    GameEnvironement(void);
-	    GameEnvironement(const GameEnvironement&);
-	    GameEnvironement(Scene);
-	    void save(std::string);
-	    void operator=(GameEnvironement);
+	    GameEnvironement();
+	    GameEnvironement(const GameEnvironement& valGameEnvironement);
+	    GameEnvironement(Scene valScene);
+	    void save(std::string sceneName);
+	    GameEnvironement &operator=(const GameEnvironement&);
     };
 
 } /* wot */

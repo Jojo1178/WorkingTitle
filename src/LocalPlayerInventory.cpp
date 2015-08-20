@@ -37,9 +37,10 @@ namespace wot {
 	content.erase(content.begin() + place);
     }
 
-   void LocalPlayerInventory::operator=(LocalPlayerInventory valLocalPlayerInventory){
+   LocalPlayerInventory & LocalPlayerInventory::operator=(const LocalPlayerInventory& valLocalPlayerInventory){
         capacity = valLocalPlayerInventory.capacity;
 	content = valLocalPlayerInventory.content;
+        return *this;
    }
     
 } /* wot */

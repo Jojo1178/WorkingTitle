@@ -35,7 +35,7 @@ namespace wot {
         inventory = valPlayer.inventory;
     }
     
-    void LocalPlayer::operator=(LocalPlayer valPlayer){
+    LocalPlayer & LocalPlayer::operator=(const LocalPlayer& valPlayer){
 	id = valPlayer.id;
 	name = valPlayer.name;
 	stackable = valPlayer.stackable;
@@ -43,5 +43,6 @@ namespace wot {
 	coordinates = valPlayer.coordinates;
 	resource = valPlayer.resource;
         inventory = valPlayer.inventory;
+        return *this;
     }    
 } /* wot */

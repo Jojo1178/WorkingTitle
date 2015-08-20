@@ -3,7 +3,7 @@
 	    	    
 
 namespace wot {
-    GameEnvironement::GameEnvironement(void) {
+    GameEnvironement::GameEnvironement() {
         scene = Scene();
     }
 
@@ -19,8 +19,9 @@ namespace wot {
 	
     }
 
-    void GameEnvironement::operator=(GameEnvironement valGameEnvironement){
+    GameEnvironement & GameEnvironement::operator=(const GameEnvironement& valGameEnvironement){
 	scene = valGameEnvironement.scene;
+        return *this;
     }
     
 } /* wot */

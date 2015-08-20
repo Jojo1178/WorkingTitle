@@ -62,10 +62,11 @@ cartY = (2 * isoY - isoX) / 2;
 	
     }
 
-    void Scene::operator=(Scene valScene){
+    Scene & Scene::operator=(const Scene& valScene){
 	maxid = valScene.maxid;
 	items = valScene.items;
         player = valScene.player;
+        return *this;
     }
     
 } /* wot */

@@ -49,9 +49,10 @@ namespace wot {
 	//return std::tie(a.x,a.y) < std::tie(b.x,b.y);
     }
 
-    void Coordinates::operator=(Coordinates val){
+    Coordinates & Coordinates::operator=(const Coordinates& val){
 	x = val.x;
 	y = val.y;
+        return *this;
     }
 
     bool operator==(Coordinates const& a,Coordinates const& b){

@@ -19,7 +19,7 @@ namespace wot {
 	    Item(const Item& valItem);
 	    Item(int valId, std::string valName, bool valStackable, unsigned int valQuantity, Coordinates valCoordinates, Resource valResource);
 
-	    void operator=(Item valItem);
+	    Item &operator=(const Item&);
     };
 
     bool operator==(Item const& a,Item const& b);

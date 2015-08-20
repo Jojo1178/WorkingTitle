@@ -16,7 +16,7 @@ namespace wot {
 	    Item getItem(int place);
 	    void addItem(Item itemToAdd);
 	    void removeItem(int place);
-	    void operator=(LocalPlayerInventory valLocalPlayerInventory);
+	    LocalPlayerInventory &operator=(const LocalPlayerInventory&);
     };
 } /* wot */
 

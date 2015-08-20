@@ -22,7 +22,7 @@ namespace wot {
 	    void addItem(Item itemToAdd);
 	    void render();
 	    void clear();
-	    void operator=(Scene valScene);
+	    Scene &operator=(const Scene&);
     };
 
 } /* wot */
