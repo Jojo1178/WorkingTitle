@@ -2,6 +2,7 @@
 
 #include "ApplicationPreferencesManager.h"
 #include "DefaultValues.h"
+#include "TextResource.h"
 
 #include <stdexcept>
 #include <iostream>
@@ -16,12 +17,26 @@ namespace wot {
     static const char * ffilter = DEFAULT_RAW_RESOURCES_FILE_EXTENTION;
 
     std::map<std::string, std::function<void(std::string)> > ResourcesManager::parseactions = {
+        {"TEXT", [&](std::string fpath) {
+                TextResource tr;
+                if (tr.construct(fpath)) {
+                    std::cout << "Loaded " << fpath << " as " << tr.toString() << std::endl;
+                    resources[ResourceType::TEXT][tr.name] = tr;
+                }
+
+            }
+        }, 
+        {"BUTTON", [&](std::string fpath) {
+            }
+        }, 
         {"SCENE", [&](std::string fpath) {
-                std::cout << "Found a SCENE." << std::endl;
             }
         }, 
         {"IMAGE", [&](std::string fpath) {
-                std::cout << "Found a IMAGE." << std::endl;
+            }
+        },
+        {"SCREEN", [&](std::string fpath) {
+                
             }
         }
     };
@@ -59,6 +74,7 @@ namespace wot {
 
 
     void ResourcesManager::feedResources(std::string resourcePath) {
+        ResourcesManager::resourcePath = resourcePath;
         ftw(resourcePath.c_str(), ftw_callback, 5);
     }
 

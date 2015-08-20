@@ -1,28 +1,40 @@
 #include "Resource.h"
+#include "ResourceType.h"
 
 namespace wot {
-    Resource::Resource(void) {
-        resourceType = "";
-        imagePath = "";
-        configPath = "";
+    Resource::Resource() {
+        resourceType = ResourceType::NONE; 
+        rawPath = "";
+
+        name = "";
+        description = "";
     }
 
-    Resource::Resource(const Resource& valResource){
-	resourceType = valResource.resourceType;
-        imagePath = valResource.imagePath;
-        configPath = valResource.configPath;
+    Resource::Resource(const Resource & resource){
+        resourceType = resource.resourceType;
+        rawPath = resource.rawPath; 
+
+        name = resource.name;
+        description = resource.description;
     }
 
-    Resource::Resource(std::string valResourceType, std::string valImagePath, std::string valConfigPath) {
-        resourceType = valResourceType;
-        imagePath = valImagePath;
-        configPath = valConfigPath;
+    Resource::~Resource() {}
+
+    Resource & Resource::operator=(const Resource & resource) {
+        resourceType = resource.resourceType;
+        rawPath = resource.rawPath; 
+
+        name = resource.name;
+        description = resource.description;
+
+        return *this;
     }
 
-    void Resource::operator=(Resource valResource){
-	resourceType = valResource.resourceType;
-        imagePath = valResource.imagePath;
-        configPath = valResource.configPath;
+    int Resource::construct(const std::string & rawPath) {
+        return 0;
     }
-    
+
+    std::string Resource::toString() {
+        return std::string("[" + ResourceTypeNames::names[resourceType] + "] " + name);
+    }
 } /* wot */

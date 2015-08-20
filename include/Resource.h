@@ -2,24 +2,34 @@
 #define __RESOURCE_H__
 
 #include <string>
+#include <ostream>
+
+#include "ResourceType.h"
 
 namespace wot {
     class Resource {
+        protected:
+            bool loaded;
         public:
-/************CHANGE RESOURCETYPE******************
-	    type resourceType;
-*/
-	    std::string resourceType;
-	    std::string imagePath;
-	    std::string configPath;
-	    
-	    Resource();
-	    Resource(const Resource&);
-	    Resource(std::string, std::string, std::string);
+            ResourceType resourceType;
+            std::string rawPath;
 
-        void operator=(Resource);
+            std::string name;
+            std::string description;
+
+            Resource();
+            Resource(const Resource & resource);
+            ~Resource();
+
+            Resource &operator=(const Resource&);
+
+            /*
+             * This function returns 1 or more if it was successful
+             * returns 0 otherwise
+             */
+            virtual int construct(const std::string & rawPath);
+            virtual std::string toString();
     };
-
 } /* wot */
 
 #endif /* __RESOURCE_H__ */
