@@ -2,7 +2,7 @@
 #include <iostream>
 
 namespace wot {
-    Scene::Scene(void) {
+    Scene::Scene() {
         maxid = 0;
         player = LocalPlayer();
     }

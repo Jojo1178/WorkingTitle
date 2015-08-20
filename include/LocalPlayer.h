@@ -8,10 +8,10 @@ namespace wot {
         public:
             LocalPlayerInventory inventory;
 	    
-	    LocalPlayer(void);
-	    LocalPlayer(const LocalPlayer&);
-	    LocalPlayer(LocalPlayerInventory);
-	    void operator=(LocalPlayer);
+	    LocalPlayer();
+	    LocalPlayer(const LocalPlayer& valPlayer);
+	    LocalPlayer(LocalPlayerInventory valInventory);
+	    void operator=(LocalPlayer valPlayer);
     };
 
 } /* wot */

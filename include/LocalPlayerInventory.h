@@ -10,13 +10,13 @@ namespace wot {
             int capacity;
 	    std::vector<Item> content;
 	    
-	    LocalPlayerInventory(void);
-	    LocalPlayerInventory(const LocalPlayerInventory&);			
-	    LocalPlayerInventory(int, std::vector<Item>);
-	    Item getItem(int);
-	    void addItem(Item);
-	    void removeItem(int);
-	    void operator=(LocalPlayerInventory);
+	    LocalPlayerInventory();
+	    LocalPlayerInventory(const LocalPlayerInventory& valLocalPlayerInventory);			
+	    LocalPlayerInventory(int valCapacity, std::vector<Item> valContent);
+	    Item getItem(int place);
+	    void addItem(Item itemToAdd);
+	    void removeItem(int place);
+	    void operator=(LocalPlayerInventory valLocalPlayerInventory);
     };
 } /* wot */
 

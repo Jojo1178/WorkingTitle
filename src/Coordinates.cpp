@@ -4,7 +4,7 @@
 #include <tuple>
 
 namespace wot {
-    Coordinates::Coordinates(void) {
+    Coordinates::Coordinates() {
         x = 0;
 	y = 0;
     }

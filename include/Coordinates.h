@@ -7,17 +7,17 @@ namespace wot {
             int x;
 	    int y;
 	    
-	    Coordinates(void);
-	    Coordinates(int, int);
-	    Coordinates(const Coordinates&);
-            Coordinates isoToTwoD(Coordinates, int, int, int);
-            Coordinates twoDToIso(Coordinates, int, int, int);
+	    Coordinates();
+	    Coordinates(int valX, int valY);
+	    Coordinates(const Coordinates& valCoordinates);
+            Coordinates isoToTwoD(Coordinates iso, int tileWHalf, int tileHHalf, int screenWidth);
+            Coordinates twoDToIso(Coordinates twoD, int tileWHalf, int tileHHalf, int tileNbHalf);
 	    void operator=(Coordinates);
     };
 
-    bool operator>(Coordinates const&,Coordinates const&);
-    bool operator<(Coordinates const&,Coordinates const&);
-    bool operator==(Coordinates const&,Coordinates const&);
+    bool operator>(Coordinates const& a,Coordinates const& b);
+    bool operator<(Coordinates const& a,Coordinates const& b);
+    bool operator==(Coordinates const& a,Coordinates const& b);
 } /* wot */
 
 #endif /* __COORDINATES_H__ */

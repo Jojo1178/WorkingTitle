@@ -2,7 +2,7 @@
 
 
 namespace wot {
-    LocalPlayer::LocalPlayer(void) {
+    LocalPlayer::LocalPlayer() {
 
 	id = 1;
 	name = "Player";

@@ -13,16 +13,16 @@ namespace wot {
 	    std::vector<Item> items;
 	    LocalPlayer player;
 	    
-	    Scene(void);
-	    Scene(const Scene&);
-	    Scene(int,std::vector<Item>,LocalPlayer);
-	    void load(std::string);
-	    void save(std::string);
+	    Scene();
+	    Scene(const Scene& valScene);
+	    Scene(int valmaxid,std::vector<Item> valItems,LocalPlayer valPlayer);
+	    void load(std::string sceneName);
+	    void save(std::string sceneName);
 	    int getNextId();
-	    void addItem(Item);
+	    void addItem(Item itemToAdd);
 	    void render();
 	    void clear();
-	    void operator=(Scene);
+	    void operator=(Scene valScene);
     };
 
 } /* wot */

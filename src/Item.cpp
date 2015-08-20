@@ -3,7 +3,7 @@
 #include <iostream>
 
 namespace wot {
-	Item::Item(void){
+	Item::Item(){
 		id = 0;
 		name = "";
 		stackable = false;

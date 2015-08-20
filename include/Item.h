@@ -15,15 +15,15 @@ namespace wot {
 	    Coordinates coordinates;
 	    Resource resource;
 	    
-	    Item(void);
-	    Item(const Item&);
-	    Item(int, std::string, bool, unsigned int, Coordinates, Resource);
+	    Item();
+	    Item(const Item& valItem);
+	    Item(int valId, std::string valName, bool valStackable, unsigned int valQuantity, Coordinates valCoordinates, Resource valResource);
 
-	    void operator=(Item);
+	    void operator=(Item valItem);
     };
 
-    bool operator==(Item const&,Item const&);
-    bool operator<(Item const&,Item const&);
+    bool operator==(Item const& a,Item const& b);
+    bool operator<(Item const& a,Item const& b);
 } /* wot */
 
 #endif /* __ITEM_H__ */

@@ -1,7 +1,7 @@
 #include "LocalPlayerInventory.h"
 
 namespace wot {
-    LocalPlayerInventory::LocalPlayerInventory(void) {
+    LocalPlayerInventory::LocalPlayerInventory() {
         capacity = 0;
     }
 
