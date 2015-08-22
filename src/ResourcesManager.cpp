@@ -2,6 +2,7 @@
 
 #include "ApplicationPreferencesManager.h"
 #include "DefaultValues.h"
+#include "ImageResource.h"
 #include "TextResource.h"
 
 #include <stdexcept>
@@ -26,15 +27,23 @@ namespace wot {
 
             }
         }, 
+        {"IMAGE", [&](std::string fpath) {
+                ImageResource ir;
+                if (ir.construct(fpath)) {
+                    std::cout << "Loaded " << fpath << " as " << ir.toString() << std::endl;
+                    resources[ResourceType::TEXT][ir.name] = ir;
+                }
+            }
+        },
         {"BUTTON", [&](std::string fpath) {
+            }
+        }, 
+        {"SPRITE", [&](std::string fpath) {
             }
         }, 
         {"SCENE", [&](std::string fpath) {
             }
         }, 
-        {"IMAGE", [&](std::string fpath) {
-            }
-        },
         {"SCREEN", [&](std::string fpath) {
                 
             }

@@ -9,6 +9,5 @@
 #define DEFAULT_HEIGHT 600
 #define DEFAULT_RAW_RESOURCES_PATH "res"
 #define DEFAULT_RAW_RESOURCES_FILE_EXTENTION "*.raw"
-#define DEFAULT_IMG_PATH "img"
 
 #endif /* __DEFAULTVALUES_H__ */

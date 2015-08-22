@@ -12,6 +12,9 @@ namespace wot {
     
             TextResource &operator=(const TextResource & textResource);
 
+            virtual bool load();
+            virtual bool free();
+
             int construct(const std::string & rawPath);
     };
 } /* wot */

@@ -1,8 +1,8 @@
 #ifndef __RESOURCE_H__
 #define __RESOURCE_H__
 
-#include <string>
 #include <ostream>
+#include <string>
 
 #include "ResourceType.h"
 
@@ -22,6 +22,9 @@ namespace wot {
             ~Resource();
 
             Resource &operator=(const Resource&);
+
+            virtual bool load();
+            virtual bool free();
 
             /*
              * This function returns 1 or more if it was successful

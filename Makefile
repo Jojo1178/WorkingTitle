@@ -9,7 +9,7 @@ OFLAGS  := -std=c++11
 # Link Options
 LDFLAGS := 
 # Link Libraries
-LDLIBS 	:= `sdl2-config --libs`
+LDLIBS 	:= `sdl2-config --libs` -lSDL2_image
 
 # Source directory
 SRCDIR	:= src

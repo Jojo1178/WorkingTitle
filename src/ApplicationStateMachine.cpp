@@ -1,12 +1,22 @@
 #include "ApplicationStateMachine.h"
 
-
 #include "ApplicationPreferencesManager.h"
 #include "ResourcesManager.h"
 #include "DefaultValues.h"
 #include "InitState.h"
 
 namespace wot {
+    SDL_Window * ApplicationStateMachine::window = NULL;
+    SDL_Surface * ApplicationStateMachine::screen = NULL;
+
+    SDL_Window * ApplicationStateMachine::getWindow() {
+        return window;
+    }
+
+    SDL_Surface * ApplicationStateMachine::getScreen() {
+        return screen;
+    }
+
     ApplicationStateMachine::ApplicationStateMachine() {
         errorFlag = false;
     }
@@ -28,15 +38,17 @@ namespace wot {
     }
 
     void ApplicationStateMachine::PreInit (int argc, char* argv[]) {
+        std::cout << "[*] PreInit" << std::endl;
+
         ApplicationPreferencesManager::feedPreferences(DEFAULT_CONFIGFILE);
         ApplicationPreferencesManager::feedPreferences(argc, argv);
-        ApplicationPreferencesManager::printPreferences();
 
         ResourcesManager::feedResources(ApplicationPreferencesManager::getStringPreference("raw_resources_path", DEFAULT_RAW_RESOURCES_PATH));
         ResourcesManager::printResources();
     }
 
     void ApplicationStateMachine::Init (void) {
+        std::cout << "[*] Init" << std::endl;
         if (errorFlag) return;
         if (SDL_Init(SDL_INIT_VIDEO) < 0) {
             std::cerr << "Unable to initialize SDL: " << SDL_GetError() << std::endl;
@@ -52,6 +64,12 @@ namespace wot {
             ApplicationPreferencesManager::getIntegerPreference("height", DEFAULT_HEIGHT),
             SDL_WINDOW_SHOWN);
 
+        int imgFlags = IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF;
+        if(!(IMG_Init(imgFlags) & imgFlags)) {
+            errorFlag = true;
+            return;
+        } 
+
         screen = SDL_GetWindowSurface(window);
 
         // Set the StateMachine's initial state
@@ -59,6 +77,7 @@ namespace wot {
     }
 
     void ApplicationStateMachine::Run (void) {
+        std::cout << "[*] Run" << std::endl;
         if (errorFlag) return;
         bool running = true;
         SDL_Event e;
@@ -75,10 +94,10 @@ namespace wot {
     }
 
     int ApplicationStateMachine::Close (void) {
-        SDL_DestroyWindow(window);
-        window = NULL;
+        std::cout << "[*] Close" << std::endl;
+
         SDL_FreeSurface(screen);
-        screen = NULL;
+        SDL_DestroyWindow(window);
         SDL_Quit();
 
         if (errorFlag) return 1;

@@ -5,6 +5,7 @@
 
 extern "C" {
 #include <SDL.h>
+#include <SDL_image.h>
 }
 
 #include <iostream>
@@ -15,12 +16,15 @@ namespace wot {
         protected:
             ApplicationState * state;
 
-            SDL_Window * window = NULL;
-            SDL_Surface * screen = NULL;
+            static SDL_Window * window;
+            static SDL_Surface * screen;
 
             bool errorFlag;
     
         public:
+            static SDL_Window * getWindow();
+            static SDL_Surface * getScreen();
+
             ApplicationStateMachine ();
             ApplicationStateMachine (const ApplicationStateMachine& _machine);
             virtual ~ApplicationStateMachine ();

@@ -1,17 +1,35 @@
 #include "TextResource.h"
 
-#include "ResourceType.h"
-
 #include <fstream>
 #include <string>
 
+#include "ResourceType.h"
+
 namespace wot {
-    TextResource::TextResource() : Resource() {}
+    TextResource::TextResource() : Resource() {
+        resourceType = ResourceType::TEXT;
+    }
+
     TextResource::TextResource(const TextResource & textResource) : Resource(textResource) {}
+
     TextResource::~TextResource() {}
 
+    TextResource & TextResource::operator=(const TextResource & textResource) {
+        resourceType = textResource.resourceType;
+        rawPath = textResource.rawPath; 
+
+        name = textResource.name;
+        description = textResource.description;
+
+        loaded = textResource.loaded;
+
+        return *this;
+    }
+
+    bool TextResource::load() {return true;}
+    bool TextResource::free() {return true;}
+
     int TextResource::construct(const std::string & rawPath) {
-        resourceType = ResourceType::TEXT;
         std::string line;
         std::ifstream infile(rawPath);
         int il = 0;
