@@ -1,7 +1,17 @@
 #include "Coordinates.h"
 
-#include <iostream>
-#include <tuple>
+
+/*
+//Cartesian to isometric:
+ 
+isoX = cartX - cartY;
+isoY = (cartX + cartY) / 2;
+	
+//Isometric to Cartesian:
+ 
+cartX = (2 * isoY + isoX) / 2;
+cartY = (2 * isoY - isoX) / 2;
+*/
 
 namespace wot {
     Coordinates::Coordinates() {
@@ -21,7 +31,7 @@ namespace wot {
 
     Coordinates Coordinates::isoToTwoD(Coordinates iso, int tileWHalf, int tileHHalf, int screenWidth){
         Coordinates twoD = Coordinates();
-        twoD.x = (iso.x - iso.y) * tileWHalf + screenWidth ;
+        twoD.x = (iso.x - iso.y) * tileWHalf + screenWidth;
         twoD.y = (iso.x + iso.y) * tileHHalf;
         return(twoD);
     }

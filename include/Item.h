@@ -4,6 +4,7 @@
 #include "Coordinates.h"
 #include "Resource.h"
 #include <string>
+#include <iostream>
 
 namespace wot {
     class Item {

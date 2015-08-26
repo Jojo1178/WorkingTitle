@@ -1,5 +1,4 @@
 #include "Scene.h"
-#include <iostream>
 
 namespace wot {
     Scene::Scene() {
@@ -43,20 +42,26 @@ namespace wot {
         std::sort(items.begin(),items.end());
     }
     void Scene::render(){
-/*
-//Cartesian to isometric:
- 
-isoX = cartX - cartY;
-isoY = (cartX + cartY) / 2;
-	
-//Isometric to Cartesian:
- 
-cartX = (2 * isoY + isoX) / 2;
-cartY = (2 * isoY - isoX) / 2;
-*/
         std::cout << "items contains:";
-        for (std::vector<Item>::iterator it=items.begin(); it!=items.end(); ++it)
-            std::cout << ((Item)*it).name <<"\n";
+        SDL_Surface *image = NULL, *rotation = NULL;
+        for (std::vector<Item>::iterator it=items.begin(); it!=items.end(); ++it){
+            Item varitem = *it;
+            image = IMG_Load(varitem.resource.rawPath.c_str());
+            SDL_Rect r;
+            Coordinates newCoor = varitem.coordinates;
+//TODO: Get Windows Resolution
+            //newCoor = newCoor.isoToTwoD(newCoor,tileW/2,tileH/2,800/2);
+            r.x = newCoor.x;
+            r.y = newCoor.y;
+            //r.w = tileW;
+            //r.h = tileH;
+            rotation = rotozoomSurface(image, 45, 1.0, 1);
+//TODO: SDL_GetWindowSurface(MainWindow)
+            //SDL_BlitSurface(rotation, NULL, screen, &r); 
+            SDL_FreeSurface(rotation); 
+//TODO: Get MainWindow
+            //SDL_UpdateWindowSurface(MainWindow);
+        }
     }
     void Scene::clear(){
 	

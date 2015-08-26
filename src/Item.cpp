@@ -1,7 +1,5 @@
 #include "Item.h"
 
-#include <iostream>
-
 namespace wot {
 	Item::Item(){
 		id = 0;

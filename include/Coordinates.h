@@ -1,6 +1,8 @@
 #ifndef __COORDINATES_H__
 #define __COORDINATES_H__
 
+#include <iostream>
+
 namespace wot {
     class Coordinates {
         public:

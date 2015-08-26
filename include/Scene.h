@@ -3,7 +3,10 @@
 
 #include "Item.h"
 #include "LocalPlayer.h"
+#include "SDL2_rotozoom.h"
+#include "SDL_image.h"
 #include <vector>
+#include <iostream>
 #include <algorithm> 
 
 namespace wot {
