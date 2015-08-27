@@ -18,6 +18,7 @@ namespace wot {
 
             static SDL_Window * window;
             static SDL_Surface * screen;
+            static SDL_Renderer * renderer;
 
             bool errorFlag;
     

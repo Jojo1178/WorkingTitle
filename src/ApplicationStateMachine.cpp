@@ -8,6 +8,7 @@
 namespace wot {
     SDL_Window * ApplicationStateMachine::window = NULL;
     SDL_Surface * ApplicationStateMachine::screen = NULL;
+    SDL_Renderer * ApplicationStateMachine::renderer = NULL;
 
     SDL_Window * ApplicationStateMachine::getWindow() {
         return window;
@@ -26,6 +27,7 @@ namespace wot {
 
         window = _machine.window;
         screen = _machine.screen;
+        renderer = _machine.renderer;
 
         errorFlag = _machine.errorFlag;
     }
@@ -34,6 +36,11 @@ namespace wot {
 
     ApplicationStateMachine & ApplicationStateMachine::operator=(const ApplicationStateMachine& _machine) {
         state = _machine.state;
+
+        window = _machine.window;
+        screen = _machine.screen;
+        renderer = _machine.renderer;
+
         return *this;
     }
 
@@ -71,6 +78,8 @@ namespace wot {
         } 
 
         screen = SDL_GetWindowSurface(window);
+
+        renderer = SDL_CreateRenderer(window, -1, 0);
 
         // Set the StateMachine's initial state
         state = new InitState(this);
