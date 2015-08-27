@@ -1,5 +1,8 @@
 #include "Scene.h"
 
+#include "ApplicationPreferencesManager.h"
+#include "DefaultValues.h"
+
 namespace wot {
     Scene::Scene() {
         maxid = 0;
@@ -41,26 +44,31 @@ namespace wot {
 	}
         std::sort(items.begin(),items.end());
     }
-    void Scene::render(){
-        std::cout << "items contains:";
+    void Scene::render(SDL_Surface * surface){
         SDL_Surface *image = NULL, *rotation = NULL;
         for (std::vector<Item>::iterator it=items.begin(); it!=items.end(); ++it){
             Item varitem = *it;
-            image = IMG_Load(varitem.resource.rawPath.c_str());
+//TODO: LOAD image
+            //image = IMG_Load(varitem.resource.rawPath.c_str());
+            image = IMG_Load("image.bmp");
             SDL_Rect r;
             Coordinates newCoor = varitem.coordinates;
-//TODO: Get Windows Resolution
-            //newCoor = newCoor.isoToTwoD(newCoor,tileW/2,tileH/2,800/2);
+            newCoor = newCoor.isoToTwoD(
+                newCoor,
+                ApplicationPreferencesManager::getIntegerPreference("tileWidth", DEFAULT_WIDTH),
+                ApplicationPreferencesManager::getIntegerPreference("tileHeight", DEFAULT_WIDTH),
+                ApplicationPreferencesManager::getIntegerPreference("width", DEFAULT_WIDTH)
+            );
             r.x = newCoor.x;
             r.y = newCoor.y;
-            //r.w = tileW;
-            //r.h = tileH;
+            r.w = ApplicationPreferencesManager::getIntegerPreference("tileWidth", DEFAULT_WIDTH);
+            r.h = ApplicationPreferencesManager::getIntegerPreference("tileHeight", DEFAULT_WIDTH);
+            image->w = r.w+13;
+            image->h = r.h+13;
             rotation = rotozoomSurface(image, 45, 1.0, 1);
-//TODO: SDL_GetWindowSurface(MainWindow)
-            //SDL_BlitSurface(rotation, NULL, screen, &r); 
-            SDL_FreeSurface(rotation); 
-//TODO: Get MainWindow
-            //SDL_UpdateWindowSurface(MainWindow);
+            SDL_BlitSurface(rotation, NULL, surface, &r); 
+            SDL_FreeSurface(rotation);
+            SDL_FreeSurface(image);
         }
     }
     void Scene::clear(){

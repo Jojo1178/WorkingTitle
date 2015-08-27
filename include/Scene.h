@@ -23,7 +23,7 @@ namespace wot {
 	    void save(std::string sceneName);
 	    int getNextId();
 	    void addItem(Item itemToAdd);
-	    void render();
+	    void render(SDL_Surface * surface);
 	    void clear();
 	    Scene &operator=(const Scene&);
     };

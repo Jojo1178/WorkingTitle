@@ -31,7 +31,7 @@ namespace wot {
 
     Coordinates Coordinates::isoToTwoD(Coordinates iso, int tileWHalf, int tileHHalf, int screenWidth){
         Coordinates twoD = Coordinates();
-        twoD.x = (iso.x - iso.y) * tileWHalf + screenWidth;
+        twoD.x = (iso.x - iso.y) * tileWHalf + screenWidth/2;
         twoD.y = (iso.x + iso.y) * tileHHalf;
         return(twoD);
     }
