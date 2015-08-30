@@ -4,6 +4,7 @@
 #include "ResourcesManager.h"
 #include "DefaultValues.h"
 #include "InitState.h"
+#include "GameState.h"
 
 namespace wot {
     SDL_Window * ApplicationStateMachine::window = NULL;
@@ -76,12 +77,12 @@ namespace wot {
             errorFlag = true;
             return;
         } 
-        renderer = SDL_CreateRenderer(window, -1, 0);
-
         screen = SDL_GetWindowSurface(window);
+        //renderer = SDL_CreateRenderer(window, -1, 0);
 
         // Set the StateMachine's initial state
-        state = new InitState(this);
+        //state = new InitState(this);
+        state = new GameState(this);
     }
 
     void ApplicationStateMachine::Run (void) {
@@ -91,13 +92,15 @@ namespace wot {
         SDL_Event e;
         while (running) {
             while (SDL_PollEvent(&e) != 0) {
-                if (e.type == SDL_QUIT) {
+                if (e.type == SDL_QUIT || (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE)) {
                     running = false;
                     break;
                 }
                 state->controlLoop(&e);
             }
             state->displayLoop(screen);
+            //SDL_RenderPresent(renderer);
+            SDL_UpdateWindowSurface(window);
         }
     }
 
