@@ -57,7 +57,7 @@ namespace wot {
     void ApplicationStateMachine::Init (void) {
         std::cout << "[*] Init" << std::endl;
         if (errorFlag) return;
-        if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        if (SDL_Init(SDL_INIT_VIDEO) != 0) {
             std::cerr << "Unable to initialize SDL: " << SDL_GetError() << std::endl;
             errorFlag = true;
             return;
@@ -76,10 +76,9 @@ namespace wot {
             errorFlag = true;
             return;
         } 
+        renderer = SDL_CreateRenderer(window, -1, 0);
 
         screen = SDL_GetWindowSurface(window);
-
-        renderer = SDL_CreateRenderer(window, -1, 0);
 
         // Set the StateMachine's initial state
         state = new InitState(this);
@@ -105,6 +104,7 @@ namespace wot {
     int ApplicationStateMachine::Close (void) {
         std::cout << "[*] Close" << std::endl;
 
+        SDL_DestroyRenderer(renderer);
         SDL_FreeSurface(screen);
         SDL_DestroyWindow(window);
         SDL_Quit();
