@@ -2,6 +2,10 @@
 
 #include "Scene.h"
 #include "Item.h"
+#include "Coordinates.h"
+#include "ApplicationPreferencesManager.h"
+#include "DefaultValues.h"
+
 #include <vector>
 
 namespace wot {
@@ -15,6 +19,33 @@ namespace wot {
     }
 
     void GameState::controlLoop(SDL_Event * e) {
+        switch (e->type){
+            case SDL_KEYDOWN:
+                break;
+            case SDL_KEYUP:
+                break;
+            case SDL_MOUSEMOTION:
+                break;
+            case SDL_MOUSEBUTTONDOWN:
+                int x,y;
+                if(SDL_BUTTON(SDL_GetMouseState(&x, &y)) == SDL_BUTTON_LEFT){
+                    std::cout<<x<<","<<y<<std::endl;
+                    Coordinates newCoor = Coordinates(x,y);
+                    newCoor = newCoor.screenToIso(
+                        newCoor,
+                        ApplicationPreferencesManager::getIntegerPreference("tileWidth", DEFAULT_WIDTH),
+                        ApplicationPreferencesManager::getIntegerPreference("tileHeight", DEFAULT_HEIGHT),
+                        ApplicationPreferencesManager::getIntegerPreference("width", DEFAULT_WIDTH),
+                        ApplicationPreferencesManager::getIntegerPreference("height", DEFAULT_HEIGHT)
+                    );
+                    std::cout<<newCoor.x<<","<<newCoor.y<<"\n"<<std::endl;
+                }
+                break;
+            case SDL_MOUSEBUTTONUP:
+                break;
+            default:
+                break;
+        }
     }
 
     void GameState::displayLoop(SDL_Surface * surface) {

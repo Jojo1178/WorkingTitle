@@ -53,7 +53,7 @@ namespace wot {
             image = IMG_Load("image.bmp");
             SDL_Rect r;
             Coordinates newCoor = varitem.coordinates;
-            newCoor = newCoor.isoToTwoD(
+            newCoor = newCoor.isoToScreen(
                 newCoor,
                 ApplicationPreferencesManager::getIntegerPreference("tileWidth", DEFAULT_WIDTH),
                 ApplicationPreferencesManager::getIntegerPreference("tileHeight", DEFAULT_WIDTH),
@@ -63,10 +63,11 @@ namespace wot {
             r.y = newCoor.y;
             r.w = ApplicationPreferencesManager::getIntegerPreference("tileWidth", DEFAULT_WIDTH);
             r.h = ApplicationPreferencesManager::getIntegerPreference("tileHeight", DEFAULT_WIDTH);
-            image->w = r.w+13;
-            image->h = r.h+13;
+            image->w = r.w;
+            image->h = r.h;
             rotation = rotozoomSurface(image, 45, 1.0, 1);
-            SDL_BlitSurface(rotation, NULL, surface, &r); 
+            //SDL_BlitSurface(image, NULL, surface, &r); 
+            SDL_BlitSurface(rotation, NULL, surface, &r);
             SDL_FreeSurface(rotation);
             SDL_FreeSurface(image);
         }

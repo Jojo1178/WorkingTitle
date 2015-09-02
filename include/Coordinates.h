@@ -12,8 +12,8 @@ namespace wot {
 	    Coordinates();
 	    Coordinates(int valX, int valY);
 	    Coordinates(const Coordinates& valCoordinates);
-            Coordinates isoToTwoD(Coordinates iso, int tileWHalf, int tileHHalf, int screenWidth);
-            Coordinates twoDToIso(Coordinates twoD, int tileWHalf, int tileHHalf, int tileNbHalf);
+            Coordinates isoToScreen(Coordinates iso, int tileW, int tileH, int screenWidth);
+            Coordinates screenToIso(Coordinates screen, int tileW, int tileH, int screenWidth, int screenHeight);
 	    Coordinates &operator=(const Coordinates&);
     };
 

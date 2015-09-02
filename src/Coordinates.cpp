@@ -1,5 +1,5 @@
 #include "Coordinates.h"
-
+#include <math.h>
 
 /*
 //Cartesian to isometric:
@@ -29,17 +29,32 @@ namespace wot {
 	y = valCoordinates.y;
     }
 
-    Coordinates Coordinates::isoToTwoD(Coordinates iso, int tileWHalf, int tileHHalf, int screenWidth){
-        Coordinates twoD = Coordinates();
-        twoD.x = (iso.x - iso.y) * tileWHalf + screenWidth/2;
-        twoD.y = (iso.x + iso.y) * tileHHalf;
-        return(twoD);
+    Coordinates Coordinates::isoToScreen(Coordinates iso, int tileW, int tileH, int screenWidth){
+        Coordinates screen = Coordinates();
+        screen.x = (screenWidth/2) - (iso.y * tileW/2) + (iso.x * tileW/2) - (tileW/2);
+        screen.y = (iso.y * tileH/2) + (iso.x * tileH/2);
+//IsoDeltaX = (MapDeltaX – MapDeltaY)
+//IsoDeltaY = (MapDeltaY + MapDeltaX) / 2
+        return(screen);
     }
 
-    Coordinates Coordinates::twoDToIso(Coordinates twoD, int tileWHalf, int tileHHalf, int tileNbHalf){
+    Coordinates Coordinates::screenToIso(Coordinates screen, int tileW, int tileH, int screenWidth, int screenHeight){
         Coordinates iso = Coordinates();
-	iso.x = ((twoD.x / tileWHalf + twoD.y / tileHHalf) /2) - tileNbHalf;
-	iso.y = ((twoD.y / (tileHHalf) -(twoD.x / tileWHalf)) /2) + tileNbHalf;
+//X0 = ScreenX – (OriginX – IsoDeltaX)
+//Y0 = ScreenY – (OriginY – IsoDeltaY)
+        int X0 = screen.x - ((screenWidth/2) - 0);
+        int Y0 = screen.y - (0 - 0);
+
+//X = Y0 + (X0 / 2)
+//Y = Y0 – (X0 / 2)
+        int X = Y0 + (X0 / 2);
+        int Y = Y0 - (X0 / 2);
+	//iso.x = ((screen.x / tileWHalf + screen.y / tileHHalf) /2) - screenWidth/(tileWHalf*4);
+	//iso.y = ((screen.y / tileHHalf -(screen.x / tileWHalf)) /2) + screenHeight/(tileHHalf*4);
+        iso.x = X / tileH;
+        iso.y = Y / tileH;
+//MapDeltaX = X \ TileDepth
+//MapDeltaY = Y \ TileDepth
         return(iso);
     }
 
