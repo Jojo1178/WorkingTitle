@@ -19,9 +19,7 @@ namespace wot {
     }
 
     ImageResource::~ImageResource() {
-        if (loaded)
-            if (bitmap != NULL)
-                SDL_FreeSurface(bitmap);
+        free();
     }
 
     ImageResource & ImageResource::operator=(const ImageResource & imageResources) {
