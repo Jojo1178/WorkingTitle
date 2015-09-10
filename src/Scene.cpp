@@ -2,6 +2,7 @@
 
 #include "ApplicationPreferencesManager.h"
 #include "DefaultValues.h"
+#include <math.h>
 
 namespace wot {
     Scene::Scene() {
@@ -51,7 +52,7 @@ namespace wot {
 //TODO: LOAD image
             //image = IMG_Load(varitem.resource.rawPath.c_str());
             image = IMG_Load("image.bmp");
-            SDL_Rect r;
+            SDL_Rect r,r2;
             Coordinates newCoor = varitem.coordinates;
             newCoor = newCoor.isoToScreen(
                 newCoor,
@@ -63,10 +64,14 @@ namespace wot {
             r.y = newCoor.y;
             r.w = ApplicationPreferencesManager::getIntegerPreference("tileWidth", DEFAULT_WIDTH);
             r.h = ApplicationPreferencesManager::getIntegerPreference("tileHeight", DEFAULT_WIDTH);
-            image->w = r.w;
-            image->h = r.h;
+            r2 = r;
+            r2.w = sqrt(r.w*r.w+r.h*r.h)/2.0;
+            r2.h = r2.w;
+            image->w = r2.w;
+            image->h = r2.h;
             rotation = rotozoomSurface(image, 45, 1.0, 1);
-            //SDL_BlitSurface(image, NULL, surface, &r); 
+            rotation->w = r.w;
+            rotation->h = r.h;
             SDL_BlitSurface(rotation, NULL, surface, &r);
             SDL_FreeSurface(rotation);
             SDL_FreeSurface(image);
