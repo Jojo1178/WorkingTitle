@@ -71,7 +71,8 @@ namespace wot {
             ApplicationPreferencesManager::getIntegerPreference("width", DEFAULT_WIDTH),
             ApplicationPreferencesManager::getIntegerPreference("height", DEFAULT_HEIGHT),
             SDL_WINDOW_SHOWN);
-
+        ApplicationPreferencesManager::setIntegerPreference("OriginX",ApplicationPreferencesManager::getIntegerPreference("width", DEFAULT_WIDTH)/2);
+        ApplicationPreferencesManager::setIntegerPreference("OriginY",ApplicationPreferencesManager::getIntegerPreference("height", DEFAULT_HEIGHT)/2);
         int imgFlags = IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF;
         if(!(IMG_Init(imgFlags) & imgFlags)) {
             errorFlag = true;
@@ -101,6 +102,7 @@ namespace wot {
             state->displayLoop(screen);
             //SDL_RenderPresent(renderer);
             SDL_UpdateWindowSurface(window);
+            SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
         }
     }
 

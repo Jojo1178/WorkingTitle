@@ -108,4 +108,21 @@ namespace wot {
         }
         return ret;
     }
+
+    void ApplicationPreferencesManager::setIntegerPreference(std::string key, int value)
+    {
+        try {
+            integerPreferences[key] = value; 
+        } catch (std::out_of_range& e) {
+            integerPreferences.insert(std::pair<std::string,int>(key,value));
+        }
+    }
+    void ApplicationPreferencesManager::setStringPreference(std::string key, std::string value)
+    {
+        try {
+            stringPreferences[key] = value; 
+        } catch (std::out_of_range& e) {
+            stringPreferences.insert(std::pair<std::string,std::string>(key,value));
+        }
+    }
 } /* wot */

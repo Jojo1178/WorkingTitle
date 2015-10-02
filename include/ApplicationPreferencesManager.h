@@ -19,6 +19,9 @@ namespace wot {
             static void clearPreferences();
             static void printPreferences();
 
+            static void setIntegerPreference(std::string key, int value);
+            static void setStringPreference(std::string key, std::string value);
+
             static int getIntegerPreference(std::string key, int def);
             static std::string getStringPreference(std::string key, std::string def);
     };

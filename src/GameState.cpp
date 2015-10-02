@@ -34,11 +34,16 @@ namespace wot {
                     newCoor = newCoor.screenToIso(
                         newCoor,
                         ApplicationPreferencesManager::getIntegerPreference("tileWidth", DEFAULT_WIDTH),
-                        ApplicationPreferencesManager::getIntegerPreference("tileHeight", DEFAULT_HEIGHT),
-                        ApplicationPreferencesManager::getIntegerPreference("width", DEFAULT_WIDTH),
-                        ApplicationPreferencesManager::getIntegerPreference("height", DEFAULT_HEIGHT)
+                        ApplicationPreferencesManager::getIntegerPreference("tileHeight", DEFAULT_HEIGHT)
                     );
                     std::cout<<newCoor.x<<","<<newCoor.y<<"\n"<<std::endl;
+                    int isoDeltaX = ApplicationPreferencesManager::getIntegerPreference("MapDeltaX",0) - ApplicationPreferencesManager::getIntegerPreference("MapDeltaY",0);
+                    int isoDeltaY = (ApplicationPreferencesManager::getIntegerPreference("MapDeltaY",0) + ApplicationPreferencesManager::getIntegerPreference("MapDeltaX",0))/2;
+                    ApplicationPreferencesManager::setIntegerPreference("IsoDeltaX",isoDeltaX);
+                    ApplicationPreferencesManager::setIntegerPreference("IsoDeltaY",isoDeltaY);
+                    std::cout<<"Delta"<<std::endl;
+                    std::cout<<ApplicationPreferencesManager::getIntegerPreference("MapDeltaX",0)<<","<<ApplicationPreferencesManager::getIntegerPreference("MapDeltaY",0)<<std::endl;
+                    std::cout<<ApplicationPreferencesManager::getIntegerPreference("IsoDeltaX",0)<<","<<ApplicationPreferencesManager::getIntegerPreference("IsoDeltaY",0)<<std::endl;
                 }
                 break;
             case SDL_MOUSEBUTTONUP:

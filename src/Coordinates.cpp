@@ -1,4 +1,6 @@
 #include "Coordinates.h"
+#include "ApplicationPreferencesManager.h"
+#include "DefaultValues.h"
 #include <math.h>
 
 /*
@@ -29,32 +31,47 @@ namespace wot {
 	y = valCoordinates.y;
     }
 
-    Coordinates Coordinates::isoToScreen(Coordinates iso, int tileW, int tileH, int screenWidth){
+    Coordinates Coordinates::isoToScreen(Coordinates iso, int tileW, int tileH){
         Coordinates screen = Coordinates();
-        screen.x = (screenWidth/2) - (iso.y * tileW/2) + (iso.x * tileW/2) - (tileW/2);
-        screen.y = (iso.y * tileH/2) + (iso.x * tileH/2);
-//IsoDeltaX = (MapDeltaX – MapDeltaY)
-//IsoDeltaY = (MapDeltaY + MapDeltaX) / 2
+        screen.x = ApplicationPreferencesManager::getIntegerPreference("OriginX",0) - (iso.y * tileW/2) + (iso.x * tileW/2) - (tileW/2);
+        screen.y = ApplicationPreferencesManager::getIntegerPreference("OriginY",0) + (iso.y * tileH/2) + (iso.x * tileH/2);
+
+        int isoDeltaX = ApplicationPreferencesManager::getIntegerPreference("MapDeltaX",0) - ApplicationPreferencesManager::getIntegerPreference("MapDeltaY",0);
+        int isoDeltaY = (ApplicationPreferencesManager::getIntegerPreference("MapDeltaY",0) + ApplicationPreferencesManager::getIntegerPreference("MapDeltaX",0))/2;
+
+        ApplicationPreferencesManager::setIntegerPreference("IsoDeltaX",isoDeltaX);
+        ApplicationPreferencesManager::setIntegerPreference("IsoDeltaY",isoDeltaY);
         return(screen);
     }
 
-    Coordinates Coordinates::screenToIso(Coordinates screen, int tileW, int tileH, int screenWidth, int screenHeight){
+    Coordinates Coordinates::screenToIso(Coordinates screen, int tileW, int tileH){
         Coordinates iso = Coordinates();
-//X0 = ScreenX – (OriginX – IsoDeltaX)
-//Y0 = ScreenY – (OriginY – IsoDeltaY)
-        int X0 = screen.x - ((screenWidth/2) - 0);
-        int Y0 = screen.y - (0 - 0);
 
-//X = Y0 + (X0 / 2)
-//Y = Y0 – (X0 / 2)
+        int X0 = screen.x - (ApplicationPreferencesManager::getIntegerPreference("OriginX",0) - ApplicationPreferencesManager::getIntegerPreference("IsoDeltaX", 0));
+        int Y0 = screen.y - (ApplicationPreferencesManager::getIntegerPreference("OriginY",0) - ApplicationPreferencesManager::getIntegerPreference("IsoDeltaY", 0));
+
         int X = Y0 + (X0 / 2);
         int Y = Y0 - (X0 / 2);
-	//iso.x = ((screen.x / tileWHalf + screen.y / tileHHalf) /2) - screenWidth/(tileWHalf*4);
-	//iso.y = ((screen.y / tileHHalf -(screen.x / tileWHalf)) /2) + screenHeight/(tileHHalf*4);
+
         iso.x = X / tileH;
         iso.y = Y / tileH;
-//MapDeltaX = X \ TileDepth
-//MapDeltaY = Y \ TileDepth
+
+        int centerX = ApplicationPreferencesManager::getIntegerPreference("width", DEFAULT_WIDTH)/2;
+        int centerY = ApplicationPreferencesManager::getIntegerPreference("height", DEFAULT_WIDTH)/2;
+        int oriX = ApplicationPreferencesManager::getIntegerPreference("OriginX", DEFAULT_WIDTH);
+        int oriY = ApplicationPreferencesManager::getIntegerPreference("OriginY", DEFAULT_WIDTH);
+
+        ApplicationPreferencesManager::setIntegerPreference("MapDeltaX",iso.x);
+        ApplicationPreferencesManager::setIntegerPreference("MapDeltaY",iso.y);
+
+        if(centerX > screenClamp.x)
+            ApplicationPreferencesManager::setIntegerPreference("OriginX",oriX - (screen.x - centerX));
+        else
+            ApplicationPreferencesManager::setIntegerPreference("OriginX",oriX + (centerX - screen.x));
+        if(centerY > screenClamp.y)
+            ApplicationPreferencesManager::setIntegerPreference("OriginY",oriY + (centerY - screen.y));
+        else
+            ApplicationPreferencesManager::setIntegerPreference("OriginY",oriY - (screen.y - centerY));
         return(iso);
     }
 
@@ -63,7 +80,6 @@ namespace wot {
 		return true;
 	else
 		return false;
-	//return std::tie(a.x,a.y) > std::tie(b.x,b.y);
     }
 
     bool operator<(Coordinates const& a,Coordinates const& b){
@@ -71,7 +87,6 @@ namespace wot {
 		return true;
 	else
 		return false;
-	//return std::tie(a.x,a.y) < std::tie(b.x,b.y);
     }
 
     Coordinates & Coordinates::operator=(const Coordinates& val){
